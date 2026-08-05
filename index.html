@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css?v=20260805-nt">
+    <link rel="stylesheet" href="style.css?v=20260805-nt2">
 </head>
 <body>
 
@@ -78,21 +78,27 @@
                                 <span class="monogram-n">N</span>
                                 <span class="monogram-t">T</span>
                             </div>
-                            <p class="identity-specialism">Finance <span>·</span> Data <span>·</span> Risk</p>
-                        </div>
-
-                        <div class="identity-details">
-                            <div>
-                                <small>Name</small>
-                                <strong>Niyat Thapa</strong>
-                            </div>
-                            <div>
-                                <small>Based in</small>
-                                <strong>Lethbridge, AB</strong>
+                            <div class="identity-summary">
+                                <p class="identity-role">Finance Student</p>
+                                <p class="identity-school">Dhillon School of Business</p>
+                                <p class="identity-specialism">Finance <span>·</span> Data <span>·</span> Risk</p>
                             </div>
                         </div>
 
-                        <span class="portrait-honour" aria-label="Dhillon School of Business Dean's List">DSB<br>Dean's<br>List</span>
+                        <dl class="identity-details">
+                            <div>
+                                <dt>Based in</dt>
+                                <dd>Lethbridge, AB</dd>
+                            </div>
+                            <div>
+                                <dt>Focus</dt>
+                                <dd>Finance + Analytics</dd>
+                            </div>
+                            <div class="identity-accent">
+                                <dt>Recognition</dt>
+                                <dd>Dean's List</dd>
+                            </div>
+                        </dl>
                     </article>
                 </div>
             </div>
@@ -633,7 +639,7 @@
                         </div>
                     </aside>
 
-                    <form class="contact-form reveal" id="contactForm">
+                    <form class="contact-form reveal" id="contactForm" aria-describedby="contactNote">
                         <p class="contact-panel-kicker">Write a message</p>
                         <h3>Open a ready-to-send email draft.</h3>
 
@@ -683,6 +689,6 @@
     </footer>
 
     <button id="scrollTop" class="scroll-top" aria-label="Scroll to top">↑</button>
-    <script src="script.js" defer></script>
+    <script src="script.js?v=20260805-nt2" defer></script>
 </body>
 </html>
