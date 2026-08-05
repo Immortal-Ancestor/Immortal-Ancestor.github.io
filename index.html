@@ -567,32 +567,84 @@
                     <span class="index-chip">06</span>
                     <p class="eyebrow">CONTACT</p>
                 </div>
-                <h2 class="section-title reveal">Let's connect</h2>
+                <h2 class="section-title reveal">Let’s start a conversation</h2>
                 <p class="contact-intro reveal">
-                    I'm open to conversations about finance, analytics, and opportunities
-                    after graduation. The fastest way to reach me is email.
+                    I’m open to conversations about finance, analytics, and opportunities
+                    after graduation. Reach me directly or use the form to prepare an email.
                 </p>
 
-                <div class="contact-list reveal">
-                    <a class="contact-item" href="mailto:n.thapa@uleth.ca">
-                        <span class="contact-label">Email</span>
-                        <span class="contact-value">n.thapa@uleth.ca</span>
-                    </a>
+                <div class="contact-grid">
+                    <aside class="contact-panel reveal" aria-labelledby="contact-direct-title">
+                        <p class="contact-panel-kicker">Direct contact</p>
+                        <h3 id="contact-direct-title">Choose the easiest way to reach me.</h3>
+                        <p class="contact-panel-copy">
+                            Email is the fastest option. You can also view my professional
+                            profiles or open my résumé.
+                        </p>
 
-                    <a class="contact-item" href="https://github.com/Immortal-Ancestor" target="_blank" rel="noopener">
-                        <span class="contact-label">GitHub</span>
-                        <span class="contact-value">github.com/Immortal-Ancestor</span>
-                    </a>
+                        <div class="contact-list">
+                            <a class="contact-item" href="mailto:n.thapa@uleth.ca">
+                                <span class="contact-item-copy">
+                                    <span class="contact-label">Email</span>
+                                    <span class="contact-value">n.thapa@uleth.ca</span>
+                                </span>
+                                <span class="contact-arrow" aria-hidden="true">↗</span>
+                            </a>
 
-                    <a class="contact-item" href="https://www.linkedin.com/in/niyat-thapa-229028308" target="_blank" rel="noopener">
-                        <span class="contact-label">LinkedIn</span>
-                        <span class="contact-value">linkedin.com/in/niyat-thapa-229028308</span>
-                    </a>
+                            <a class="contact-item" href="https://www.linkedin.com/in/niyat-thapa-229028308" target="_blank" rel="noopener">
+                                <span class="contact-item-copy">
+                                    <span class="contact-label">LinkedIn</span>
+                                    <span class="contact-value">Niyat Thapa</span>
+                                </span>
+                                <span class="contact-arrow" aria-hidden="true">↗</span>
+                            </a>
 
-                    <a class="contact-item" href="niyat-thapa-resume.pdf" target="_blank" rel="noopener">
-                        <span class="contact-label">Résumé</span>
-                        <span class="contact-value">View PDF</span>
-                    </a>
+                            <a class="contact-item" href="https://github.com/Immortal-Ancestor" target="_blank" rel="noopener">
+                                <span class="contact-item-copy">
+                                    <span class="contact-label">GitHub</span>
+                                    <span class="contact-value">Immortal-Ancestor</span>
+                                </span>
+                                <span class="contact-arrow" aria-hidden="true">↗</span>
+                            </a>
+
+                            <a class="contact-item" href="niyat-thapa-resume.pdf" target="_blank" rel="noopener">
+                                <span class="contact-item-copy">
+                                    <span class="contact-label">Résumé</span>
+                                    <span class="contact-value">View PDF</span>
+                                </span>
+                                <span class="contact-arrow" aria-hidden="true">↗</span>
+                            </a>
+                        </div>
+                    </aside>
+
+                    <form class="contact-form reveal" id="contactForm">
+                        <p class="contact-panel-kicker">Write a message</p>
+                        <h3>Open a ready-to-send email draft.</h3>
+
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="contactName">Name</label>
+                                <input type="text" id="contactName" name="name" autocomplete="name" placeholder="Your name" required>
+                            </div>
+
+                            <div class="form-field">
+                                <label for="contactEmail">Email</label>
+                                <input type="email" id="contactEmail" name="email" autocomplete="email" placeholder="you@example.com" required>
+                            </div>
+                        </div>
+
+                        <div class="form-field">
+                            <label for="contactMessage">Message</label>
+                            <textarea id="contactMessage" name="message" rows="7" placeholder="What would you like to discuss?" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary contact-submit">
+                            Open Email Draft <span aria-hidden="true">↗</span>
+                        </button>
+                        <p class="contact-note" id="contactNote">
+                            This opens your email app. Nothing entered here is stored by this website.
+                        </p>
+                    </form>
                 </div>
             </div>
         </section>
