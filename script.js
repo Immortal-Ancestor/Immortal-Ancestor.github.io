@@ -139,4 +139,35 @@ document.addEventListener("DOMContentLoaded", function () {
     // If reduced motion is preferred or IntersectionObserver is unsupported,
     // the static values already in the HTML are left as-is.
 
+
+    /* ---------- 7. Contact email-draft form ---------- */
+    const contactForm = document.querySelector("#contactForm");
+
+    if (contactForm) {
+        contactForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+
+            if (!contactForm.reportValidity()) return;
+
+            const name = document.querySelector("#contactName").value.trim();
+            const email = document.querySelector("#contactEmail").value.trim();
+            const message = document.querySelector("#contactMessage").value.trim();
+
+            const subject = "Portfolio inquiry from " + name;
+            const body = [
+                "Hi Niyat,",
+                "",
+                message,
+                "",
+                "Best,",
+                name,
+                email
+            ].join("\n");
+
+            window.location.href =
+                "mailto:n.thapa@uleth.ca?subject=" + encodeURIComponent(subject) +
+                "&body=" + encodeURIComponent(body);
+        });
+    }
+
 });
