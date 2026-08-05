@@ -291,73 +291,193 @@ button:focus-visible {
 
 .hero-visual {
     justify-self: center;
-    width: min(330px, 100%);
+    width: min(360px, 100%);
 }
 
-.portrait-card {
+.identity-card {
     position: relative;
-    width: 100%;
-    margin: 0;
-}
-
-.portrait-frame {
-    position: relative;
-    padding: 8px;
-    background: var(--ink-raised-2);
+    min-height: 430px;
+    padding: 1.25rem;
+    overflow: visible;
+    background:
+        linear-gradient(rgba(244, 240, 228, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(244, 240, 228, 0.035) 1px, transparent 1px),
+        radial-gradient(circle at 50% 42%, rgba(91, 132, 196, 0.16), transparent 44%),
+        var(--ink-raised);
+    background-size: 28px 28px, 28px 28px, auto, auto;
     border: 1px solid var(--brass-soft);
     box-shadow: 0 28px 65px rgba(0, 0, 0, 0.34);
 }
 
-.portrait-frame::before,
-.portrait-frame::after {
+.identity-card::before,
+.identity-card::after {
     content: "";
     position: absolute;
-    width: 50px;
-    height: 50px;
-    z-index: 2;
+    width: 54px;
+    height: 54px;
     pointer-events: none;
 }
-.portrait-frame::before {
+
+.identity-card::before {
     top: -8px;
     left: -8px;
     border-top: 2px solid var(--brass);
     border-left: 2px solid var(--brass);
 }
-.portrait-frame::after {
+
+.identity-card::after {
     right: -8px;
     bottom: -8px;
     border-right: 2px solid var(--accent-blue);
     border-bottom: 2px solid var(--accent-blue);
 }
 
-.portrait-frame img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    object-position: 50% 44%;
-    filter: saturate(0.92) contrast(1.03);
-    border: 1px solid var(--rule);
-}
-
-.portrait-meta {
+.identity-topline {
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-    padding: 1rem 0.2rem 0;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid var(--rule);
     font-family: var(--font-mono);
-    text-transform: uppercase;
-}
-.portrait-meta span {
-    color: var(--brass);
-    font-size: 0.72rem;
-    letter-spacing: 0.12em;
-}
-.portrait-meta strong {
-    color: var(--ivory-dim);
-    font-size: 0.68rem;
-    letter-spacing: 0.08em;
+    font-size: 0.62rem;
     font-weight: 500;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+}
+
+.identity-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--brass);
+}
+
+.identity-status i {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-blue);
+    box-shadow: 0 0 0 4px rgba(91, 132, 196, 0.12);
+}
+
+.identity-core {
+    min-height: 286px;
+    display: grid;
+    place-items: center;
+    align-content: center;
+    gap: 1.25rem;
+}
+
+.identity-monogram {
+    position: relative;
+    isolation: isolate;
+    width: 205px;
+    height: 205px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--brass);
+    background: rgba(15, 30, 39, 0.58);
+    box-shadow:
+        inset 0 0 0 10px rgba(199, 163, 94, 0.045),
+        0 18px 50px rgba(0, 0, 0, 0.22);
+}
+
+.identity-monogram::before,
+.identity-monogram::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background: var(--rule);
+}
+
+.identity-monogram::before {
+    width: 1px;
+    height: calc(100% + 34px);
+    left: 50%;
+    top: -17px;
+}
+
+.identity-monogram::after {
+    width: calc(100% + 34px);
+    height: 1px;
+    top: 50%;
+    left: -17px;
+}
+
+.identity-monogram span {
+    font-family: var(--font-display);
+    font-size: 7.4rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.12em;
+}
+
+.monogram-n {
+    color: var(--ivory);
+    transform: translateX(0.08em);
+}
+
+.monogram-t {
+    color: var(--brass);
+    transform: translateX(-0.08em);
+}
+
+.identity-specialism {
+    margin: 0;
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+}
+
+.identity-specialism span {
+    padding: 0 0.35rem;
+    color: var(--accent-blue);
+}
+
+.identity-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+}
+
+.identity-details div {
+    min-width: 0;
+}
+
+.identity-details div + div {
+    padding-left: 1rem;
+    border-left: 1px solid var(--rule);
+}
+
+.identity-details small,
+.identity-details strong {
+    display: block;
+}
+
+.identity-details small {
+    margin-bottom: 0.2rem;
+    font-family: var(--font-mono);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ivory-dim);
+}
+
+.identity-details strong {
+    overflow-wrap: anywhere;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--ivory);
 }
 
 .portrait-honour {
@@ -380,6 +500,38 @@ button:focus-visible {
     letter-spacing: 0.1em;
     text-align: center;
     text-transform: uppercase;
+}
+
+@media (max-width: 430px) {
+    .identity-card {
+        min-height: 390px;
+        padding: 1rem;
+    }
+
+    .identity-topline {
+        font-size: 0.56rem;
+    }
+
+    .identity-core {
+        min-height: 250px;
+    }
+
+    .identity-monogram {
+        width: 165px;
+        height: 165px;
+    }
+
+    .identity-monogram span {
+        font-size: 6rem;
+    }
+
+    .identity-details {
+        gap: 0.65rem;
+    }
+
+    .identity-details div + div {
+        padding-left: 0.65rem;
+    }
 }
 
 /* ---------- stat strip ---------- */
