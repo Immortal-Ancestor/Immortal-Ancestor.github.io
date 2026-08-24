@@ -1,0 +1,612 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7d263f" />
+    <title>A Little Peace Offering</title>
+    <meta name="description" content="A tiny page for a very important person." />
+    <meta property="og:title" content="A Little Peace Offering" />
+    <meta property="og:description" content="A tiny page for a very important person." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://immortal-ancestor.github.io/peace-offering/" />
+    <meta property="og:image" content="https://immortal-ancestor.github.io/peace-offering/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="A Little Peace Offering" />
+    <meta name="twitter:description" content="A tiny page for a very important person." />
+    <meta name="twitter:image" content="https://immortal-ancestor.github.io/peace-offering/og.png" />
+    <style>
+      :root {
+        --ink: #351a22;
+        --muted: #795d64;
+        --paper: #fffaf5;
+        --cream: #f6ece3;
+        --rose: #d8a5ae;
+        --wine: #7d263f;
+        --wine-dark: #5c1930;
+        --line: rgba(93, 32, 49, 0.18);
+        --shadow: 0 28px 70px rgba(89, 41, 48, 0.14);
+        --serif: Georgia, "Times New Roman", serif;
+        --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      }
+
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 12% 8%, rgba(216, 165, 174, 0.28), transparent 27rem),
+          radial-gradient(circle at 88% 78%, rgba(125, 38, 63, 0.09), transparent 30rem),
+          var(--cream);
+        font-family: var(--sans);
+      }
+
+      button, input { font: inherit; }
+      button { color: inherit; }
+
+      .shell {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 44px;
+      }
+
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 18px;
+      }
+
+      .eyebrow {
+        margin: 0;
+        color: var(--wine);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.19em;
+        text-transform: uppercase;
+      }
+
+      .customize-link {
+        border: 0;
+        border-bottom: 1px solid var(--line);
+        padding: 4px 0;
+        background: transparent;
+        color: var(--muted);
+        cursor: pointer;
+        font-size: 0.82rem;
+      }
+
+      .paper {
+        overflow: hidden;
+        border: 1px solid rgba(93, 32, 49, 0.12);
+        border-radius: 32px;
+        background: rgba(255, 250, 245, 0.92);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(14px);
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+        min-height: 540px;
+      }
+
+      .hero-copy {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: clamp(40px, 7vw, 92px);
+      }
+
+      .kicker {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0 0 22px;
+        color: var(--wine);
+        font-size: 0.76rem;
+        font-weight: 800;
+        letter-spacing: 0.17em;
+        text-transform: uppercase;
+      }
+
+      .kicker::before {
+        width: 30px;
+        height: 1px;
+        content: "";
+        background: currentColor;
+      }
+
+      h1 {
+        max-width: 760px;
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(3.7rem, 8.5vw, 7.4rem);
+        font-weight: 500;
+        letter-spacing: -0.065em;
+        line-height: 0.88;
+      }
+
+      .lede {
+        max-width: 630px;
+        margin: 30px 0 0;
+        color: var(--muted);
+        font-family: var(--serif);
+        font-size: clamp(1.2rem, 2vw, 1.55rem);
+        line-height: 1.55;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 34px;
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 50px;
+        border: 1px solid var(--wine);
+        border-radius: 999px;
+        padding: 14px 22px;
+        cursor: pointer;
+        font-weight: 800;
+        text-decoration: none;
+        transition: transform 160ms ease, background 160ms ease, color 160ms ease;
+      }
+
+      .button:hover { transform: translateY(-2px); }
+      .button:active { transform: translateY(0); }
+      .button.primary { background: var(--wine); color: #fffaf5; }
+      .button.primary:hover { background: var(--wine-dark); }
+      .button.secondary { background: transparent; color: var(--wine); }
+      .button.secondary:hover { background: rgba(125, 38, 63, 0.06); }
+
+      .side-note {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100%;
+        border-left: 1px solid var(--line);
+        padding: 36px;
+        background: var(--wine);
+        color: #fff8f1;
+      }
+
+      .side-note::after {
+        position: absolute;
+        right: 32px;
+        bottom: 20px;
+        color: rgba(255,255,255,0.09);
+        content: "♡";
+        font-family: var(--serif);
+        font-size: 13rem;
+        line-height: 1;
+        pointer-events: none;
+      }
+
+      .note-number {
+        position: relative;
+        z-index: 1;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        opacity: 0.7;
+      }
+
+      .quote {
+        position: relative;
+        z-index: 1;
+        margin: 70px 0;
+        font-family: var(--serif);
+        font-size: clamp(2rem, 4vw, 3.3rem);
+        line-height: 1.08;
+      }
+
+      .signature {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        font-family: var(--serif);
+        font-style: italic;
+        font-size: 1.05rem;
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: 0.95fr 1.05fr;
+        border-top: 1px solid var(--line);
+      }
+
+      .section { padding: clamp(36px, 5vw, 66px); }
+      .section + .section { border-left: 1px solid var(--line); }
+
+      .section-label {
+        margin: 0 0 16px;
+        color: var(--wine);
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.17em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        margin: 0;
+        font-family: var(--serif);
+        font-size: clamp(2.2rem, 4vw, 3.7rem);
+        font-weight: 500;
+        letter-spacing: -0.045em;
+        line-height: 1;
+      }
+
+      .body-copy {
+        margin: 22px 0 0;
+        color: var(--muted);
+        line-height: 1.78;
+      }
+
+      .promise-list {
+        display: grid;
+        gap: 1px;
+        margin-top: 28px;
+        overflow: hidden;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: var(--line);
+      }
+
+      .promise {
+        display: grid;
+        grid-template-columns: 38px 1fr;
+        gap: 12px;
+        padding: 19px;
+        background: var(--paper);
+      }
+
+      .promise span {
+        display: grid;
+        width: 32px;
+        height: 32px;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(125, 38, 63, 0.08);
+        color: var(--wine);
+        font-family: var(--serif);
+        font-weight: 700;
+      }
+
+      .promise h3 { margin: 1px 0 4px; font-family: var(--serif); font-size: 1.1rem; }
+      .promise p { margin: 0; color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+      .meter {
+        margin-top: 30px;
+        border-radius: 22px;
+        padding: 24px;
+        background: #f4e5e3;
+      }
+
+      .meter-top { display: flex; justify-content: space-between; gap: 16px; }
+      .meter-top strong { font-family: var(--serif); font-size: 1.1rem; }
+      .meter-top output { color: var(--wine); font-size: 0.83rem; font-weight: 800; text-align: right; }
+
+      input[type="range"] {
+        width: 100%;
+        margin: 22px 0 10px;
+        accent-color: var(--wine);
+        cursor: pointer;
+      }
+
+      .range-labels {
+        display: flex;
+        justify-content: space-between;
+        color: var(--muted);
+        font-size: 0.7rem;
+        font-weight: 700;
+      }
+
+      .needs { margin-top: 28px; }
+      .needs > p { margin: 0 0 13px; font-family: var(--serif); font-size: 1.12rem; font-weight: 700; }
+
+      .need-options { display: flex; flex-wrap: wrap; gap: 8px; }
+      .need-option {
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 10px 14px;
+        background: var(--paper);
+        cursor: pointer;
+        font-size: 0.83rem;
+        font-weight: 750;
+      }
+      .need-option:hover, .need-option[aria-pressed="true"] {
+        border-color: var(--wine);
+        background: var(--wine);
+        color: white;
+      }
+
+      .need-response {
+        min-height: 48px;
+        margin: 18px 0 0;
+        border-left: 3px solid var(--rose);
+        padding: 3px 0 3px 14px;
+        color: var(--muted);
+        line-height: 1.55;
+      }
+
+      .closing {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        border-top: 1px solid var(--line);
+        padding: 26px clamp(28px, 5vw, 66px);
+      }
+
+      .closing p { margin: 0; color: var(--muted); font-family: var(--serif); font-style: italic; }
+      .tiny-heart { color: var(--wine); font-size: 1.5rem; }
+
+      dialog {
+        width: min(580px, calc(100% - 28px));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 0;
+        background: var(--paper);
+        color: var(--ink);
+        box-shadow: var(--shadow);
+      }
+      dialog::backdrop { background: rgba(45, 18, 26, 0.62); backdrop-filter: blur(4px); }
+      .dialog-inner { padding: clamp(28px, 6vw, 52px); }
+      .dialog-top { display: flex; align-items: start; justify-content: space-between; gap: 18px; }
+      .dialog-top h2 { font-size: clamp(2.2rem, 7vw, 3.5rem); }
+      .close {
+        display: grid;
+        flex: 0 0 auto;
+        width: 38px;
+        height: 38px;
+        place-items: center;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: transparent;
+        cursor: pointer;
+        font-size: 1.2rem;
+      }
+      .letter-text { margin: 28px 0 0; color: var(--muted); font-family: var(--serif); font-size: 1.18rem; line-height: 1.75; }
+      .dialog-sign { margin: 28px 0 0; color: var(--wine); font-family: var(--serif); font-size: 1.1rem; font-style: italic; }
+
+      .form-grid { display: grid; gap: 16px; margin-top: 28px; }
+      label { display: grid; gap: 7px; color: var(--muted); font-size: 0.78rem; font-weight: 800; }
+      input[type="text"] {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 13px 14px;
+        background: #fff;
+        color: var(--ink);
+        outline: none;
+      }
+      input[type="text"]:focus { border-color: var(--wine); box-shadow: 0 0 0 3px rgba(125, 38, 63, 0.1); }
+      .save-row { display: flex; align-items: center; gap: 12px; margin-top: 22px; }
+      .save-status { color: var(--muted); font-size: 0.8rem; }
+
+      :focus-visible { outline: 3px solid rgba(125, 38, 63, 0.35); outline-offset: 3px; }
+
+      @media (max-width: 800px) {
+        .shell { width: min(100% - 20px, 680px); padding-top: 14px; }
+        .topbar { padding: 0 6px; }
+        .paper { border-radius: 24px; }
+        .hero, .content { grid-template-columns: 1fr; }
+        .hero { min-height: auto; }
+        .hero-copy { padding: 50px 28px; }
+        h1 { font-size: clamp(4rem, 18vw, 6.2rem); }
+        .side-note { min-height: 370px; border-top: 1px solid var(--line); border-left: 0; }
+        .quote { margin: 50px 0; }
+        .section + .section { border-top: 1px solid var(--line); border-left: 0; }
+        .closing { align-items: flex-start; }
+      }
+
+      @media (max-width: 480px) {
+        .eyebrow { letter-spacing: 0.12em; }
+        .hero-actions, .hero-actions .button { width: 100%; }
+        .button { text-align: center; }
+        .section { padding: 38px 24px; }
+        .meter { padding: 20px; }
+        .meter-top { display: grid; }
+        .meter-top output { text-align: left; }
+        .save-row { align-items: stretch; flex-direction: column; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header class="topbar">
+        <p class="eyebrow">A little peace offering</p>
+        <button class="customize-link" id="customizeButton" type="button">Personalize this page</button>
+      </header>
+
+      <main class="paper">
+        <section class="hero" aria-labelledby="main-title">
+          <div class="hero-copy">
+            <p class="kicker">For someone very important</p>
+            <h1 id="main-title">Hey, <span data-to-name>you</span>.</h1>
+            <p class="lede">I don't want to win the argument. I want to understand you, make it right, and do better.</p>
+            <div class="hero-actions">
+              <button class="button primary" id="openLetter" type="button">Read my actual apology</button>
+              <a class="button secondary" href="#what-you-need">Tell me what you need</a>
+            </div>
+          </div>
+
+          <aside class="side-note" aria-label="The most important part">
+            <span class="note-number">The important part</span>
+            <p class="quote">Your feelings matter more to me than being right.</p>
+            <p class="signature">— <span data-from-name>me</span></p>
+          </aside>
+        </section>
+
+        <div class="content">
+          <section class="section" aria-labelledby="promise-title">
+            <p class="section-label">Not just pretty words</p>
+            <h2 id="promise-title">What I mean by “sorry.”</h2>
+            <p class="body-copy">I know a cute page does not erase why you're upset. This is only a small way of showing that I care enough to stop, listen, and change what needs changing.</p>
+            <div class="promise-list">
+              <article class="promise">
+                <span>1</span>
+                <div><h3>Listen first</h3><p>No interrupting, fixing, or turning it into a debate.</p></div>
+              </article>
+              <article class="promise">
+                <span>2</span>
+                <div><h3>Own my part</h3><p>No excuses dressed up as explanations.</p></div>
+              </article>
+              <article class="promise">
+                <span>3</span>
+                <div><h3>Follow through</h3><p>The real apology is what I do differently after this.</p></div>
+              </article>
+            </div>
+          </section>
+
+          <section class="section" id="what-you-need" aria-labelledby="need-title">
+            <p class="section-label">Your turn, no pressure</p>
+            <h2 id="need-title">How mad are we?</h2>
+            <div class="meter">
+              <div class="meter-top"><strong>Current forecast</strong><output id="madOutput" for="madMeter">Flowers. Immediately.</output></div>
+              <input id="madMeter" type="range" min="0" max="4" step="1" value="3" aria-label="How upset are you?" />
+              <div class="range-labels" aria-hidden="true"><span>We can talk</span><span>Very mad</span></div>
+            </div>
+
+            <div class="needs">
+              <p>What would help most right now?</p>
+              <div class="need-options" role="group" aria-label="Choose what you need">
+                <button class="need-option" type="button" data-need="space" aria-pressed="false">A little space</button>
+                <button class="need-option" type="button" data-need="listen" aria-pressed="false">Just listen</button>
+                <button class="need-option" type="button" data-need="food" aria-pressed="false">Food first</button>
+                <button class="need-option" type="button" data-need="hug" aria-pressed="false">A hug</button>
+                <button class="need-option" type="button" data-need="plan" aria-pressed="false">A real plan</button>
+              </div>
+              <p class="need-response" id="needResponse" aria-live="polite">Pick one. I promise not to argue with the answer.</p>
+            </div>
+          </section>
+        </div>
+
+        <footer class="closing">
+          <p>No pressure to forgive me quickly. Take the time you need.</p>
+          <span class="tiny-heart" aria-hidden="true">♡</span>
+        </footer>
+      </main>
+    </div>
+
+    <dialog id="letterDialog" aria-labelledby="letter-title">
+      <div class="dialog-inner">
+        <div class="dialog-top">
+          <div><p class="section-label">The honest version</p><h2 id="letter-title">I'm sorry.</h2></div>
+          <button class="close" type="button" data-close="letterDialog" aria-label="Close apology">×</button>
+        </div>
+        <p class="letter-text">I know your feelings are not something to rush past. When you're ready, I want to hear all of it without getting defensive. I care more about getting this right than proving I was right. You matter to me, and I am sorry I made you feel otherwise.</p>
+        <p class="dialog-sign">With love,<br /><span data-from-name>me</span></p>
+      </div>
+    </dialog>
+
+    <dialog id="customizeDialog" aria-labelledby="customize-title">
+      <form class="dialog-inner" id="customizeForm" method="dialog">
+        <div class="dialog-top">
+          <div><p class="section-label">Make it yours</p><h2 id="customize-title">Personalize it.</h2></div>
+          <button class="close" type="button" data-close="customizeDialog" aria-label="Close personalization">×</button>
+        </div>
+        <div class="form-grid">
+          <label>Her name<input id="toInput" type="text" maxlength="40" placeholder="Her name" autocomplete="off" /></label>
+          <label>Your name<input id="fromInput" type="text" maxlength="40" placeholder="Your name" autocomplete="off" /></label>
+        </div>
+        <div class="save-row">
+          <button class="button primary" id="savePersonalization" type="submit">Save & copy link</button>
+          <span class="save-status" id="saveStatus" aria-live="polite"></span>
+        </div>
+      </form>
+    </dialog>
+
+    <script>
+      const qs = (selector) => document.querySelector(selector);
+      const qsa = (selector) => document.querySelectorAll(selector);
+      const cleanName = (value, fallback) => (value || "").trim().slice(0, 40) || fallback;
+      const params = new URLSearchParams(window.location.search);
+
+      function applyNames(toName, fromName) {
+        qsa("[data-to-name]").forEach((el) => { el.textContent = toName; });
+        qsa("[data-from-name]").forEach((el) => { el.textContent = fromName; });
+        document.title = toName === "you" ? "A Little Peace Offering" : "For " + toName + " — A Little Peace Offering";
+      }
+
+      const initialTo = cleanName(params.get("to"), "you");
+      const initialFrom = cleanName(params.get("from"), "me");
+      applyNames(initialTo, initialFrom);
+      qs("#toInput").value = initialTo === "you" ? "" : initialTo;
+      qs("#fromInput").value = initialFrom === "me" ? "" : initialFrom;
+
+      const letterDialog = qs("#letterDialog");
+      const customizeDialog = qs("#customizeDialog");
+      qs("#openLetter").addEventListener("click", () => letterDialog.showModal());
+      qs("#customizeButton").addEventListener("click", () => customizeDialog.showModal());
+      qsa("[data-close]").forEach((button) => {
+        button.addEventListener("click", () => qs("#" + button.dataset.close).close());
+      });
+      [letterDialog, customizeDialog].forEach((dialog) => {
+        dialog.addEventListener("click", (event) => {
+          if (event.target === dialog) dialog.close();
+        });
+      });
+
+      const meterCopy = [
+        "Maybe I have a chance.",
+        "Proceed carefully.",
+        "Snacks may be required.",
+        "Flowers. Immediately.",
+        "Put the phone down and listen."
+      ];
+      const meter = qs("#madMeter");
+      const meterOutput = qs("#madOutput");
+      meter.addEventListener("input", () => { meterOutput.textContent = meterCopy[Number(meter.value)]; });
+
+      const needCopy = {
+        space: "Okay. I'll give you space and let you choose when we talk.",
+        listen: "Okay. I'll listen—fully, quietly, and without defending myself.",
+        food: "Valid. Food first, serious conversation second.",
+        hug: "Okay. A hug, no speech, no pressure.",
+        plan: "You're right. Words need a clear plan and follow-through."
+      };
+      qsa(".need-option").forEach((button) => {
+        button.addEventListener("click", () => {
+          qsa(".need-option").forEach((item) => item.setAttribute("aria-pressed", "false"));
+          button.setAttribute("aria-pressed", "true");
+          qs("#needResponse").textContent = needCopy[button.dataset.need];
+        });
+      });
+
+      qs("#customizeForm").addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const toName = cleanName(qs("#toInput").value, "you");
+        const fromName = cleanName(qs("#fromInput").value, "me");
+        const nextUrl = new URL(window.location.href);
+        if (toName === "you") nextUrl.searchParams.delete("to"); else nextUrl.searchParams.set("to", toName);
+        if (fromName === "me") nextUrl.searchParams.delete("from"); else nextUrl.searchParams.set("from", fromName);
+        window.history.replaceState({}, "", nextUrl);
+        applyNames(toName, fromName);
+        try {
+          await navigator.clipboard.writeText(nextUrl.toString());
+          qs("#saveStatus").textContent = "Personalized link copied.";
+        } catch {
+          qs("#saveStatus").textContent = "Saved. Copy the address from your browser.";
+        }
+        window.setTimeout(() => customizeDialog.close(), 900);
+      });
+    </script>
+  </body>
+</html>
