@@ -15,8 +15,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=portfolio-v2.2">
-  <script src="script.js?v=portfolio-v2" defer></script>
+  <link rel="stylesheet" href="style.css?v=work-lab">
+  <script>
+    try {
+      const theme = localStorage.getItem("portfolio-theme");
+      if (theme === "light") document.documentElement.dataset.theme = theme;
+    } catch {}
+  </script>
+  <script src="script.js?v=work-lab" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -25,8 +31,9 @@
       <a class="brand" href="#home" aria-label="Niyat Thapa, home"><span class="mark" aria-hidden="true">NT</span><span>Niyat Thapa</span></a>
       <button class="menu" type="button" aria-controls="navigation" aria-expanded="false" hidden>Menu</button>
       <nav id="navigation" aria-label="Main navigation">
-        <a href="#work">Work</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#education">Education</a><a href="#contact">Contact</a>
+        <a href="#work">Work</a><a href="#lab">Lab</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#education">Education</a><a href="#contact">Contact</a>
       </nav>
+      <button class="button button-small theme-toggle" type="button" aria-pressed="false" hidden>Light mode</button>
       <a class="button button-small nav-resume" href="niyat-thapa-resume.pdf?v=academic-update" target="_blank" rel="noopener">Résumé <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
     </div>
     <div class="read-progress" aria-hidden="true"></div>
@@ -66,16 +73,127 @@
         <h2>Selected work<span class="hero-dot">.</span></h2>
         <p>Financial risk, process automation, and business strategy applied to practical problems.</p>
       </div>
-      <div class="feature panel">
-        <div class="feature-copy">
-          <p class="kicker"><span class="signal"></span> INTERACTIVE CASE STUDY</p>
-          <h3>How much does FX exposure matter?</h3>
-          <p>This demo uses the core calculation from my <strong>Portfolio Currency Exposure Risk Report</strong>. Move the sliders to see how a currency shock affects an entire portfolio.</p>
-          <p class="formula">Portfolio loss = position weight × adverse FX move</p>
-          <a class="text-link" href="https://github.com/Immortal-Ancestor/currency-risk-report" target="_blank" rel="noopener">View the Python project <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
+      <div class="explore panel" hidden>
+        <div><h3>Explore by interest</h3><p id="interest-note" class="small" aria-live="polite">Browse five projects in finance, strategy and automation.</p></div>
+        <div class="filters" role="group" aria-label="Explore by interest">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="finance" aria-pressed="false">Finance &amp; risk</button>
+        <button type="button" data-filter="automation" aria-pressed="false">Automation</button>
+        <button type="button" data-filter="strategy" aria-pressed="false">Strategy</button>
+        <button type="button" data-filter="research" aria-pressed="false">Research</button>
         </div>
-        <div class="simulator" aria-labelledby="sim-title">
-          <div class="sim-top"><h4 id="sim-title">FX shock simulator</h4><span class="tag">SCENARIO</span></div>
+        <a class="text-link" id="interest-experience" href="#experience" hidden>See related experience</a>
+      </div>
+      <div class="projects" id="projects">
+        <article class="project panel" data-category="finance automation">
+          <div class="project-id"><span>01 / FX RISK</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
+          <h3>Portfolio Currency Exposure Risk Report</h3>
+          <p>A Python report that uses FRED exchange rates to convert positions to USD, model a 10% adverse move, and flag material exposures.</p>
+          <ul class="tags"><li>Python</li><li>FRED API</li><li>Scenario analysis</li></ul>
+          <p class="project-proof"><strong>5%</strong> portfolio loss threshold</p>
+          <details class="walkthrough">
+            <summary>Project walkthrough</summary>
+            <dl>
+                <div><dt>Problem</dt><dd>How much could a currency move cost the whole portfolio?</dd></div>
+                <div><dt>My contribution</dt><dd>Built the conversion, scenario and flagging logic for Data Transformation (DGTR 3720).</dd></div>
+                <div><dt>Method</dt><dd>Convert positions to USD, calculate each portfolio weight, then apply a 10% adverse move.</dd></div>
+                <div><dt>Result</dt><dd>The report ranks positions and flags any single exposure whose loss exceeds 5% of the portfolio.</dd></div>
+            </dl>
+            <figure class="project-output">
+                <figcaption>Report excerpt · generated with sample rates</figcaption>
+                <pre tabindex="0">CURRENCY     USD VALUE    WEIGHT     10% LOSS  STATUS
+EUR          $  66,000     66.2%     $  6,600  WARNING
+CAD          $  33,750     33.8%     $  3,375  OK
+
+TOTAL PORTFOLIO (USD)      $99,750</pre>
+              </figure>
+              <a class="text-link" href="#fx">Try the FX scenario</a>
+          </details>
+          <a class="text-link" href="https://github.com/Immortal-Ancestor/currency-risk-report" target="_blank" rel="noopener">View code <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
+        </article>
+        <article class="project panel" data-category="automation">
+          <div class="project-id"><span>02 / AUTOMATION</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
+          <h3>Tea with Nessie</h3>
+          <p>An Excel-to-Word mail merge in Python that generates personalized invitations for 24 guests across three venues.</p>
+          <ul class="tags"><li>Python</li><li>openpyxl</li><li>python-docx</li></ul>
+          <p class="project-proof"><strong>24</strong> invitations across three venues</p>
+          <details class="walkthrough">
+            <summary>Project walkthrough</summary>
+            <dl>
+                <div><dt>Problem</dt><dd>How can one workbook produce invitations for guests across several venues?</dd></div>
+                <div><dt>My contribution</dt><dd>Designed the workbook and Word template, then wrote the Python script.</dd></div>
+                <div><dt>Method</dt><dd>Validate guest records, fill a fresh copy of the template for each guest, and check for unresolved fields.</dd></div>
+                <div><dt>Result</dt><dd>The run summary records 24 invitations, eight per venue, with no unfilled placeholders.</dd></div>
+            </dl>
+            <figure class="project-output">
+                <figcaption>From the repository’s run summary</figcaption>
+                <ul class="output-list"><li>Dores Inn Lochside Pavilion <strong>8</strong></li><li>Fort Augustus Abbey Conservatory <strong>8</strong></li><li>Urquhart Castle Tea Lawn <strong>8</strong></li></ul>
+              </figure>
+              <a class="text-link" href="https://github.com/Immortal-Ancestor/Immortal-Ancestor-tea-with-nessie/blob/main/merge_summary.txt" target="_blank" rel="noopener">Read the run summary</a>
+          </details>
+          <a class="text-link" href="https://github.com/Immortal-Ancestor/Immortal-Ancestor-tea-with-nessie" target="_blank" rel="noopener">View code <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
+        </article>
+        <article class="project panel" data-category="strategy research">
+          <div class="project-id"><span>03 / MARKET ENTRY</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
+          <h3>Automotive Market Entry</h3>
+          <p>A strategy report on how an automotive brand could enter Canada, accounting for tariff-rate quotas and changes to EV rebates.</p>
+          <ul class="tags"><li>Policy research</li><li>Market analysis</li></ul>
+          <details class="walkthrough">
+            <summary>Project walkthrough</summary>
+            <dl>
+                <div><dt>Problem</dt><dd>How could an automotive brand enter Canada under changing policy conditions?</dd></div>
+                <div><dt>My contribution</dt><dd>Co-authored the report for Management Policy and Strategy (MGT 4090) and researched policy effects.</dd></div>
+                <div><dt>Method</dt><dd>Examined tariff-rate quotas and EV rebates to connect market conditions with entry options.</dd></div>
+                <div><dt>Result</dt><dd>The team turned the findings into a market-entry recommendation.</dd></div>
+            </dl>
+            
+          </details>
+        </article>
+        <article class="project panel" data-category="finance strategy research">
+          <div class="project-id"><span>04 / PAYMENT RISK</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
+          <h3>Supply Chain Payment Controls</h3>
+          <p>A team proposal for a blockchain-based approach to supplier verification and controlled payment release.</p>
+          <ul class="tags"><li>Supply chain</li><li>Risk controls</li></ul>
+          <details class="walkthrough">
+            <summary>Project walkthrough</summary>
+            <dl>
+                <div><dt>Problem</dt><dd>What should be verified before a supplier payment is released?</dd></div>
+                <div><dt>My contribution</dt><dd>Helped design and document the payment controls.</dd></div>
+                <div><dt>Method</dt><dd>Mapped supplier verification and payment conditions into a proposed blockchain-based workflow.</dd></div>
+                <div><dt>Result</dt><dd>The team delivered a proposal describing when a payment could be released.</dd></div>
+            </dl>
+            
+          </details>
+        </article>
+        <article class="project panel" data-category="finance strategy research">
+          <div class="project-id"><span>05 / CASE COMPETITION</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
+          <h3>NextGen Risk Insurance Case Competition</h3>
+          <p>Selected as one of four University of Lethbridge students to represent the school in Calgary in March 2026.</p>
+          <ul class="tags"><li>Risk assessment</li><li>Case analysis</li></ul>
+          <details class="walkthrough">
+            <summary>Project walkthrough</summary>
+            <dl>
+                <div><dt>Problem</dt><dd>What should a business do about its most important risks?</dd></div>
+                <div><dt>My contribution</dt><dd>Identified key risks in a time-limited case and helped present the team’s recommendations.</dd></div>
+                <div><dt>Method</dt><dd>Used the facts in the case to prioritize risks and develop a response.</dd></div>
+                <div><dt>Result</dt><dd>Represented the University of Lethbridge in Calgary and co-presented to industry judges.</dd></div>
+            </dl>
+            
+          </details>
+        </article>
+      </div>
+    </section>
+
+    <section class="section wrap" id="lab">
+      <div class="section-head">
+        <p class="kicker"><span class="signal"></span> FINANCE LAB</p>
+        <h2>Try a scenario<span class="hero-dot">.</span></h2>
+        <p>Change the assumptions and see what moves the result.</p>
+      </div>
+      <div class="lab-grid">
+        <article class="simulator panel" id="fx" aria-labelledby="sim-title">
+          <div class="sim-top"><h3 id="sim-title">FX shock simulator</h3><span class="tag">CURRENCY RISK</span></div>
+          <p>Start with a hypothetical US$100,000 portfolio. Adjust the size of one foreign currency position and the adverse FX move.</p>
           <div class="sim-inputs" hidden>
             <div class="range-row">
               <label for="exposure">Position weight</label><output id="exposure-value" for="exposure">40%</output>
@@ -86,57 +204,49 @@
               <input id="shock" type="range" min="0" max="25" value="10" step="1">
             </div>
           </div>
-          <noscript><p class="small">Example: 40% position weight × 10% adverse move.</p></noscript>
-          <div class="sim-result" aria-live="polite"><div><span class="small">Estimated portfolio loss</span><strong id="loss">4.00%</strong></div><span class="sim-status" id="risk-status">Within threshold</span></div>
-          <div class="gauge" aria-hidden="true"><span id="gauge-fill"></span><i></i></div>
-          <p class="small">The report flags a position when its loss exceeds 5% of the full portfolio.</p>
-        </div>
-      </div>
-
-      <div class="filters" role="group" aria-label="Filter projects" hidden>
-        <button type="button" data-filter="all" aria-pressed="true">All</button>
-        <button type="button" data-filter="finance" aria-pressed="false">Finance &amp; risk</button>
-        <button type="button" data-filter="automation" aria-pressed="false">Automation</button>
-        <button type="button" data-filter="strategy" aria-pressed="false">Strategy</button>
-        <span class="filter-count small" aria-live="polite">5 projects</span>
-      </div>
-      <div class="projects" id="projects">
-        <article class="project panel" data-category="finance automation">
-          <div class="project-id"><span>01 / FX RISK</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
-          <h3>Portfolio Currency Exposure Risk Report</h3>
-          <p>A Python report that uses FRED exchange rates to convert positions to USD, model a 10% adverse move, and flag material exposures.</p>
-          <ul class="tags"><li>Python</li><li>FRED API</li><li>Scenario analysis</li></ul>
-          <details><summary>My contribution</summary><p>Designed and built the currency conversion, shock simulation, and flagging logic for Data Transformation (DGTR 3720).</p></details>
-          <a class="text-link" href="https://github.com/Immortal-Ancestor/currency-risk-report" target="_blank" rel="noopener">View code <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
+          <figure class="lab-chart">
+            <svg viewBox="0 0 360 166" aria-hidden="true" focusable="false">
+              <path class="chart-grid" d="M42 20H336 M42 80H336 M42 140H336 M42 20V140"/>
+              <path class="chart-threshold" d="M42 116H336"/>
+              <path id="fx-line" class="chart-series" d="M42 140L336 92"/>
+              <circle id="fx-marker" class="chart-marker" cx="159.6" cy="120.8" r="5"/>
+              <g class="chart-label"><text x="34" y="24" text-anchor="end">25%</text><text x="34" y="120" text-anchor="end">5%</text><text x="34" y="144" text-anchor="end">0%</text>
+                <text x="42" y="158">0%</text><text x="336" y="158" text-anchor="end">25% FX move</text></g>
+            </svg>
+            <figcaption class="small">Portfolio loss by FX move. The dashed line marks the report’s 5% loss threshold.</figcaption>
+          </figure>
+          <div class="sim-result" aria-live="polite"><div><span class="small">Portfolio loss</span><strong id="loss">4.00%</strong></div><span class="sim-status" id="risk-status">Within threshold</span></div>
+          <p class="small">Portfolio after shock <strong id="fx-value">US$96,000</strong></p>
+          <a class="text-link" href="https://github.com/Immortal-Ancestor/currency-risk-report" target="_blank" rel="noopener">View the Python project</a>
         </article>
-        <article class="project panel" data-category="automation">
-          <div class="project-id"><span>02 / AUTOMATION</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
-          <h3>Tea with Nessie</h3>
-          <p>An Excel-to-Word mail merge in Python that generates personalized invitations for 24 guests across three venues.</p>
-          <ul class="tags"><li>Python</li><li>openpyxl</li><li>python-docx</li></ul>
-          <details><summary>My contribution</summary><p>Designed the workbook and template, then wrote the script that validates records, merges fields, and exports the invitations.</p></details>
-          <a class="text-link" href="https://github.com/Immortal-Ancestor/Immortal-Ancestor-tea-with-nessie" target="_blank" rel="noopener">View code <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
-        </article>
-        <article class="project panel" data-category="strategy">
-          <div class="project-id"><span>03 / MARKET ENTRY</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
-          <h3>Automotive Market Entry</h3>
-          <p>A strategy report on how an automotive brand could enter Canada, accounting for tariff-rate quotas and changes to EV rebates.</p>
-          <ul class="tags"><li>Policy research</li><li>Market analysis</li></ul>
-          <details><summary>My contribution</summary><p>Co-authored the report for Management Policy and Strategy (MGT 4090). Researched policy effects and translated the findings into an entry recommendation.</p></details>
-        </article>
-        <article class="project panel" data-category="finance strategy">
-          <div class="project-id"><span>04 / PAYMENT RISK</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
-          <h3>Supply Chain Payment Controls</h3>
-          <p>A team proposal for a blockchain-based approach to supplier verification and controlled payment release.</p>
-          <ul class="tags"><li>Supply chain</li><li>Risk controls</li></ul>
-          <details><summary>My contribution</summary><p>Helped design the controls and document the conditions that must be met before payment is released.</p></details>
-        </article>
-        <article class="project panel" data-category="finance strategy">
-          <div class="project-id"><span>05 / CASE COMPETITION</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
-          <h3>NextGen Risk Insurance Case Competition</h3>
-          <p>Selected as one of four University of Lethbridge students to represent the school in Calgary in March 2026.</p>
-          <ul class="tags"><li>Risk assessment</li><li>Case analysis</li></ul>
-          <details><summary>My contribution</summary><p>Identified key risks in a time-limited business case and co-presented recommendations to a panel of industry judges.</p></details>
+        <article class="simulator panel" id="npv" aria-labelledby="npv-title">
+          <div class="sim-top"><h3 id="npv-title">NPV sensitivity</h3><span class="tag">CAPITAL BUDGETING</span></div>
+          <p>Test a hypothetical C$100,000 investment with five equal cash flows paid at year end and no terminal value.</p>
+          <div class="sim-inputs" hidden>
+            <div class="range-row">
+              <label for="cash-flow">Annual cash flow</label><output id="cash-value" for="cash-flow">$30,000</output>
+              <input id="cash-flow" type="range" min="10000" max="50000" value="30000" step="1000">
+            </div>
+            <div class="range-row">
+              <label for="discount">Discount rate</label><output id="rate-value" for="discount">10%</output>
+              <input id="discount" type="range" min="0" max="20" value="10" step="0.5">
+            </div>
+          </div>
+          <figure class="lab-chart" id="npv-chart" hidden>
+            <svg viewBox="0 0 360 166" aria-hidden="true" focusable="false">
+              <path class="chart-grid" d="M66 20H336 M66 80H336 M66 140H336 M66 20V140"/>
+              <path id="npv-zero" class="chart-threshold"/>
+              <path id="npv-line" class="chart-series"/>
+              <circle id="npv-marker" class="chart-marker" r="5"/>
+              <g class="chart-label">
+                <text id="npv-upper" x="60" y="24" text-anchor="end"/>
+                <text id="npv-lower" x="60" y="144" text-anchor="end"/>
+                <text x="66" y="158">0%</text><text x="336" y="158" text-anchor="end">20% discount rate</text>
+              </g>
+            </svg>
+            <figcaption class="small">NPV by discount rate. The dashed line marks break-even at $0.</figcaption>
+          </figure>
+          <div class="sim-result" aria-live="polite"><div><span class="small">Net present value</span><strong id="npv-value">$13,724</strong></div><span class="sim-status" id="npv-status">Positive NPV</span></div>
         </article>
       </div>
     </section>
@@ -144,17 +254,23 @@
     <section class="section wrap" id="experience">
       <div class="section-head"><p class="kicker"><span>02</span> / EXPERIENCE</p><h2>Where I’ve worked<span class="hero-dot">.</span></h2></div>
       <div class="timeline">
-        <article><div class="time"><span>NOV 2026 – PRESENT</span><span>Lethbridge, AB</span></div><div><h3>Research Assistant</h3><p class="organization">University of Lethbridge</p><p>Contribute to a risk management research paper under Dr. Shamsul Alam.</p></div></article>
-        <article><div class="time"><span>FALL 2026</span><span>Lethbridge, AB</span></div><div><h3>Student Marker · FINC 3412</h3><p class="organization">University of Lethbridge</p><p>Grade Fundamentals of Investments assessments against instructor criteria while protecting student confidentiality.</p></div></article>
-        <article><div class="time"><span>OCT – DEC 2025</span><span>Lethbridge, AB</span></div><div><h3>Field Marketing Representative</h3><p class="organization">Kognitive Sales Solutions</p><p>Explained Canadian Tire Bank products and eligibility, guided customers through applications, and checked information for accuracy and completeness.</p></div></article>
-        <article><div class="time"><span>APR – JUL 2025</span><span>St. Albert, AB</span></div><div><h3>Sales Associate</h3><p class="organization">Canadian Tire Corporation</p><p>Supported more than 300 weekly transactions and service interactions with approximately 99.9% accuracy.</p></div></article>
-        <article><div class="time"><span>AUG – DEC 2024</span><span>Remote</span></div><div><h3>Online Data Analyst</h3><p class="organization">TELUS International</p><p>Reviewed online data for accuracy, relevance, and completeness against written guidelines.</p></div></article>
-        <article><div class="time"><span>AUG 2022 – FEB 2023</span><span>Kathmandu, Nepal</span></div><div><h3>Financial &amp; Marketing Intern</h3><p class="organization">Abbitex Premium</p><p>Processed and coded more than 100 invoices per month, maintained financial records, and supported sales reporting.</p></div></article>
+        <article data-interest="research finance"><div class="time"><span>NOV 2026 – PRESENT</span><span>Lethbridge, AB</span></div><div><h3>Research Assistant</h3><p class="organization">University of Lethbridge</p><p>Contribute to a risk management research paper under Dr. Shamsul Alam.</p><span class="role-match tag" hidden>Matches your interest</span><details class="role-detail"><summary>Skills and example</summary><ul class="tags"><li>Research collaboration</li><li>Risk analysis</li></ul><p>Contribute to a research paper on risk management.</p></details></div></article>
+        <article data-interest="finance research"><div class="time"><span>FALL 2026</span><span>Lethbridge, AB</span></div><div><h3>Student Marker · FINC 3412</h3><p class="organization">University of Lethbridge</p><p>Grade Fundamentals of Investments assessments against instructor criteria while protecting student confidentiality.</p><span class="role-match tag" hidden>Matches your interest</span><details class="role-detail"><summary>Skills and example</summary><ul class="tags"><li>Investment analysis</li><li>Quality review</li></ul><p>Apply instructor criteria to written investment assessments.</p></details></div></article>
+        <article data-interest="finance"><div class="time"><span>OCT – DEC 2025</span><span>Lethbridge, AB</span></div><div><h3>Field Marketing Representative</h3><p class="organization">Kognitive Sales Solutions</p><p>Explained Canadian Tire Bank products and eligibility, guided customers through applications, and checked information for accuracy and completeness.</p><span class="role-match tag" hidden>Matches your interest</span><details class="role-detail"><summary>Skills and example</summary><ul class="tags"><li>Financial products</li><li>Accuracy</li></ul><p>Check applications for complete and accurate information.</p></details></div></article>
+        <article data-interest=""><div class="time"><span>APR – JUL 2025</span><span>St. Albert, AB</span></div><div><h3>Sales Associate</h3><p class="organization">Canadian Tire Corporation</p><p>Supported more than 300 weekly transactions and service interactions with approximately 99.9% accuracy.</p><span class="role-match tag" hidden>Matches your interest</span><details class="role-detail"><summary>Skills and example</summary><ul class="tags"><li>Customer service</li><li>Transaction processing</li></ul><p>Process retail transactions and help resolve customer questions.</p></details></div></article>
+        <article data-interest="research"><div class="time"><span>AUG – DEC 2024</span><span>Remote</span></div><div><h3>Online Data Analyst</h3><p class="organization">TELUS International</p><p>Reviewed online data for accuracy, relevance, and completeness against written guidelines.</p><span class="role-match tag" hidden>Matches your interest</span><details class="role-detail"><summary>Skills and example</summary><ul class="tags"><li>Data validation</li><li>Quality standards</li></ul><p>Review online information against written relevance and accuracy guidelines.</p></details></div></article>
+        <article data-interest="finance"><div class="time"><span>AUG 2022 – FEB 2023</span><span>Kathmandu, Nepal</span></div><div><h3>Financial &amp; Marketing Intern</h3><p class="organization">Abbitex Premium</p><p>Processed and coded more than 100 invoices per month, maintained financial records, and supported sales reporting.</p><span class="role-match tag" hidden>Matches your interest</span><details class="role-detail"><summary>Skills and example</summary><ul class="tags"><li>Financial records</li><li>Reporting</li></ul><p>Code invoices and maintain records used in sales reporting.</p></details></div></article>
       </div>
     </section>
 
     <section class="section wrap" id="about">
       <div class="section-head"><p class="kicker"><span>03</span> / ABOUT &amp; SKILLS</p><h2>How I work<span class="hero-dot">.</span></h2></div>
+      <aside class="current-focus panel">
+        <p class="kicker"><span class="signal"></span> CURRENT FOCUS</p>
+        <h3>Risk management research</h3>
+        <p>I contribute to a risk management research paper at the University of Lethbridge. My portfolio projects show how I apply related ideas through currency scenarios and payment controls.</p>
+        <a class="text-link" href="#experience">View research experience</a>
+      </aside>
       <div class="about-grid">
         <div class="about-copy panel">
           <h3>I like numbers that reconcile.</h3>

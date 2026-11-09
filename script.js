@@ -1,6 +1,6 @@
 "use strict";
 
-const mobile = window.matchMedia("(max-width: 720px)");
+const mobile = window.matchMedia("(max-width: 850px)");
 const menu = document.querySelector(".menu");
 const nav = document.querySelector("#navigation");
 const navLinks = [...nav.querySelectorAll("a")];
@@ -53,23 +53,66 @@ window.addEventListener("scroll", requestNavigationUpdate, { passive: true });
 window.addEventListener("resize", requestNavigationUpdate);
 updateNavigation();
 
+const themeToggle = document.querySelector(".theme-toggle");
+function syncThemeButton() {
+  const light = document.documentElement.dataset.theme === "light";
+  themeToggle.setAttribute("aria-pressed", String(light));
+  document.querySelector('meta[name="theme-color"]').content = light ? "#f8f7f2" : "#090e18";
+}
+themeToggle.hidden = false;
+syncThemeButton();
+themeToggle.addEventListener("click", () => {
+  const theme = document.documentElement.dataset.theme === "light" ? "dark" : "light";
+  document.documentElement.dataset.theme = theme;
+  try { localStorage.setItem("portfolio-theme", theme); } catch {}
+  syncThemeButton();
+});
+
 const filters = document.querySelector(".filters");
 const filterButtons = [...filters.querySelectorAll("button")];
 const projects = [...document.querySelectorAll(".project")];
-const filterCount = filters.querySelector(".filter-count");
-filters.hidden = false;
+const roles = [...document.querySelectorAll(".timeline article")];
+const interestNote = document.querySelector("#interest-note");
+const interestLink = document.querySelector("#interest-experience");
+const interestDescriptions = {
+  all: "Browse five projects in finance, strategy and automation.",
+  finance: "Explore financial risk and controls, then see how they connect to my experience.",
+  research: "Explore policy and case research, plus my related university and data experience.",
+  automation: "See how Python turned currency data and guest records into usable outputs.",
+  strategy: "Explore market entry, supplier payments and recommendations from a risk case."
+};
+document.querySelector(".explore").hidden = false;
 
 filters.addEventListener("click", event => {
   const button = event.target.closest("button[data-filter]");
   if (!button) return;
   const filter = button.dataset.filter;
+  document.querySelector(".projects").classList.toggle("is-filtered", filter !== "all");
   filterButtons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
   let count = 0;
   projects.forEach(project => {
-    project.hidden = filter !== "all" && !project.dataset.category.split(" ").includes(filter);
-    if (!project.hidden) count += 1;
+    const match = filter === "all" || project.dataset.category.split(" ").includes(filter);
+    project.hidden = !match;
+    if (match) {
+      count += 1;
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        project.animate([{ opacity: 0.65 }, { opacity: 1 }], { duration: 180 });
+      }
+    }
   });
-  filterCount.textContent = count === 1 ? "1 project" : count + " projects";
+  let hasRelatedRoles = false;
+  roles.forEach(role => {
+    const match = role.dataset.interest.split(" ").includes(filter);
+    role.classList.toggle("related-role", match);
+    role.querySelector(".role-match").hidden = !match;
+    hasRelatedRoles ||= match;
+  });
+  interestNote.textContent = filter === "all"
+    ? interestDescriptions.all
+    : (count === 1 ? "1 project. " : count + " projects. ") + interestDescriptions[filter];
+  interestLink.hidden = !hasRelatedRoles && filter !== "automation";
+  interestLink.href = hasRelatedRoles ? "#experience" : "#skills";
+  interestLink.textContent = hasRelatedRoles ? "See related experience" : "See automation skills";
   requestNavigationUpdate();
 });
 
@@ -79,7 +122,13 @@ const exposureValue = document.querySelector("#exposure-value");
 const shockValue = document.querySelector("#shock-value");
 const loss = document.querySelector("#loss");
 const riskStatus = document.querySelector("#risk-status");
-const simulator = document.querySelector(".simulator");
+const simulator = document.querySelector("#fx");
+const fxLine = document.querySelector("#fx-line");
+const fxMarker = document.querySelector("#fx-marker");
+const fxValue = document.querySelector("#fx-value");
+const usd = new Intl.NumberFormat("en-CA", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+const cad = new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 });
+const compactMoney = new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", notation: "compact", maximumFractionDigits: 0 });
 const riskThreshold = 5;
 
 function updateSimulator() {
@@ -89,16 +138,79 @@ function updateSimulator() {
   const flagged = portfolioLoss > riskThreshold;
   exposureValue.textContent = exposurePercent + "%";
   shockValue.textContent = shockPercent + "%";
+  exposure.setAttribute("aria-valuetext", exposureValue.textContent);
+  shock.setAttribute("aria-valuetext", shockValue.textContent);
   loss.textContent = portfolioLoss.toFixed(2) + "%";
   riskStatus.textContent = flagged ? "Above threshold" : "Within threshold";
   simulator.classList.toggle("is-risk", flagged);
-  simulator.style.setProperty("--loss-width", portfolioLoss / Number(shock.max) * 100 + "%");
+  fxLine.setAttribute("d", "M42 140L336 " + (140 - 120 * exposurePercent / 100));
+  fxMarker.setAttribute("cx", 42 + 294 * shockPercent / Number(shock.max));
+  fxMarker.setAttribute("cy", 140 - 120 * portfolioLoss / Number(shock.max));
+  fxValue.textContent = usd.format(100000 * (1 - portfolioLoss / 100));
 }
 
-document.querySelector(".sim-inputs").hidden = false;
+document.querySelectorAll(".sim-inputs").forEach(inputs => { inputs.hidden = false; });
 exposure.addEventListener("input", updateSimulator);
 shock.addEventListener("input", updateSimulator);
 updateSimulator();
+
+const cash = document.querySelector("#cash-flow");
+const discount = document.querySelector("#discount");
+const npv = document.querySelector("#npv");
+const npvResult = npv.querySelector("#npv-value");
+const npvStatus = npv.querySelector("#npv-status");
+const cashValue = npv.querySelector("#cash-value");
+const rateValue = npv.querySelector("#rate-value");
+const npvLine = npv.querySelector("#npv-line");
+const npvZero = npv.querySelector("#npv-zero");
+const npvMarker = npv.querySelector("#npv-marker");
+const npvLower = npv.querySelector("#npv-lower");
+const npvUpper = npv.querySelector("#npv-upper");
+
+function presentValue(cashFlow, discountPercent) {
+  let value = -100000;
+  for (let year = 1; year <= 5; year += 1) {
+    value += cashFlow / (1 + discountPercent / 100) ** year;
+  }
+  return value;
+}
+
+function updateNpv() {
+  const cashFlow = cash.valueAsNumber;
+  const rate = discount.valueAsNumber;
+  const maximumRate = Number(discount.max);
+  const value = presentValue(cashFlow, rate);
+  const minimum = Math.min(0, presentValue(cashFlow, maximumRate));
+  const maximum = Math.max(0, presentValue(cashFlow, 0));
+  const pad = Math.max(5000, (maximum - minimum) * 0.1);
+  const lower = Math.floor((minimum - pad) / 5000) * 5000;
+  const upper = Math.ceil((maximum + pad) / 5000) * 5000;
+  const x = percent => 66 + 270 * percent / maximumRate;
+  const y = amount => 140 - 120 * (amount - lower) / (upper - lower);
+  const points = Array.from({ length: 21 }, (_, i) => {
+    const sample = maximumRate * i / 20;
+    return (i === 0 ? "M" : "L") + x(sample) + " " + y(presentValue(cashFlow, sample));
+  });
+  npvLine.setAttribute("d", points.join(" "));
+  npvZero.setAttribute("d", "M66 " + y(0) + "H336");
+  npvMarker.setAttribute("cx", x(rate));
+  npvMarker.setAttribute("cy", y(value));
+  npvLower.textContent = compactMoney.format(lower);
+  npvUpper.textContent = compactMoney.format(upper);
+  cashValue.textContent = cad.format(cashFlow);
+  rateValue.textContent = rate + "%";
+  cash.setAttribute("aria-valuetext", cashValue.textContent);
+  discount.setAttribute("aria-valuetext", rateValue.textContent);
+  const roundedValue = Math.round(value);
+  npvResult.textContent = cad.format(roundedValue);
+  npvStatus.textContent = roundedValue === 0 ? "Break-even" : roundedValue > 0 ? "Positive NPV" : "Negative NPV";
+  npv.classList.toggle("is-risk", roundedValue < 0);
+}
+
+document.querySelector("#npv-chart").hidden = false;
+cash.addEventListener("input", updateNpv);
+discount.addEventListener("input", updateNpv);
+updateNpv();
 
 const email = document.querySelector(".contact-email");
 const copyButton = document.querySelector("#copy-email");
