@@ -211,3 +211,5 @@ details[open] summary { margin-bottom: .35rem; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+.icon { display: inline-block; flex: none; width: 1em; height: 1em; vertical-align: -.1em; }
