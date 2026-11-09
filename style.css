@@ -158,7 +158,7 @@ details[open] summary { margin-bottom: .35rem; }
 .edu h3 { margin-top: .4rem; }
 .edu p + p { margin-top: .5rem; }
 .primary-edu { border-color: #426766; }
-.gpas { width: fit-content; margin: .85rem 0 .4rem; }
+.gpas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; margin: .85rem 0 .4rem; }
 .gpas > div { background: #0a1624; border: 1px solid #344560; border-radius: 9px; padding: .6rem .8rem; }
 .gpas dt { font: 500 .73rem/1.4 var(--mono); color: var(--muted); }
 .gpas dd { color: var(--accent); margin-top: .15rem; }
