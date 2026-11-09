@@ -37,8 +37,8 @@ This is my personal portfolio website. It presents my background in finance, dat
 - `index.html` — website content and structure
 - `style.css` — layout, colours, typography, and responsive design
 - `script.js` — navigation, contact form, and interactive features
-- `niyat-thapa-resume.pdf` — downloadable résumé
-- `images/` — website images and project visuals
+- `niyat-thapa-resume.pdf` — public résumé updated November 9, 2026
+- `images/` — website images, including Niyat’s portrait
 
 ## AI Acknowledgement
 
