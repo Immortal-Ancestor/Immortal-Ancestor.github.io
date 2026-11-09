@@ -18,12 +18,11 @@ This is my personal portfolio website. It presents my background in finance, dat
 
 ## Features
 
-- Responsive design for desktop and mobile screens
-- About, skills, experience, education, projects, and contact sections
-- Project descriptions, tools, and visuals
-- Downloadable resume
-- Contact form that opens a prepared email draft
-- Smooth navigation and scroll effects
+- Responsive portfolio with an accessible mobile menu and reading progress
+- Interactive FX shock simulator based on the Currency Exposure Risk Report
+- Filterable projects with expandable contribution summaries
+- Experience, skills, and academic highlights
+- Résumé download, email copy button, and contact form that opens a draft in the visitor's email app
 
 ## Built With
 
