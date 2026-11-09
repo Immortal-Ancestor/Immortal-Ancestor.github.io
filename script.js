@@ -75,10 +75,10 @@ const roles = [...document.querySelectorAll(".timeline article")];
 const interestNote = document.querySelector("#interest-note");
 const interestLink = document.querySelector("#interest-experience");
 const interestDescriptions = {
-  all: "Browse five projects in finance, strategy and automation.",
+  all: "Browse four more projects by interest.",
   finance: "Explore financial risk and controls, then see how they connect to my experience.",
   research: "Explore policy and case research, plus my related university and data experience.",
-  automation: "See how Python turned currency data and guest records into usable outputs.",
+  automation: "See how Python turned guest records into personalized invitations.",
   strategy: "Explore market entry, supplier payments and recommendations from a risk case."
 };
 document.querySelector(".explore").hidden = false;
@@ -87,7 +87,6 @@ filters.addEventListener("click", event => {
   const button = event.target.closest("button[data-filter]");
   if (!button) return;
   const filter = button.dataset.filter;
-  document.querySelector(".projects").classList.toggle("is-filtered", filter !== "all");
   filterButtons.forEach(item => item.setAttribute("aria-pressed", String(item === button)));
   let count = 0;
   projects.forEach(project => {

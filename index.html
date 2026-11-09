@@ -15,14 +15,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=work-lab">
+  <link rel="stylesheet" href="style.css?v=featured-work">
   <script>
     try {
       const theme = localStorage.getItem("portfolio-theme");
       if (theme === "light") document.documentElement.dataset.theme = theme;
     } catch {}
   </script>
-  <script src="script.js?v=work-lab" defer></script>
+  <script src="script.js?v=featured-work" defer></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -43,13 +43,13 @@
     <section id="home" class="hero">
       <div class="hero-grid wrap">
         <div class="hero-copy">
-          <p class="kicker"><span class="signal"></span> FINANCE / RISK / ANALYTICS</p>
-          <h1>Niyat Thapa<span class="hero-dot">.</span></h1>
-          <p class="hero-title">From financial data<br>to <em>clear decisions.</em></p>
-          <p class="hero-intro">Finance student and research assistant at the University of Lethbridge. I build Python tools for currency risk and document automation, and contribute to research on risk management.</p>
+          <p class="kicker"><span class="signal"></span> NIYAT THAPA</p>
+          <h1>Finance, research, and code<span class="hero-dot">.</span></h1>
+          <p class="hero-title">Turning data into decisions.</p>
+          <p class="hero-intro">I study finance and work as a research assistant at the University of Lethbridge.</p>
           <div class="actions">
-            <a class="button button-primary" href="#work">Explore my work <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v10m-4-4 4 4 4-4"/></svg></a>
-            <a class="button" href="niyat-thapa-resume.pdf?v=academic-update" target="_blank" rel="noopener">View résumé <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
+            <a class="button button-primary" href="#work">View Projects <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v10m-4-4 4 4 4-4"/></svg></a>
+            <a class="button" href="niyat-thapa-resume.pdf?v=academic-update" download="Niyat-Thapa-Resume.pdf">Download Résumé <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v9m-3-3 3 3 3-3M3 14h10"/></svg></a>
           </div>
         </div>
         <figure class="profile">
@@ -60,22 +60,63 @@
           <figcaption><div><strong>Niyat Thapa</strong><span>Dhillon School of Business</span></div><span class="profile-badge" aria-hidden="true">NT</span></figcaption>
         </figure>
       </div>
-      <div class="metrics wrap" aria-label="Portfolio highlights">
-        <div><strong>Finance</strong><p>Bachelor of Management</p></div>
-        <div><strong>5</strong><p>Selected projects</p></div>
-        <div><strong>Apr ’27</strong><p>Expected graduation</p></div>
-      </div>
     </section>
 
     <section class="section wrap" id="work">
       <div class="section-head">
         <p class="kicker"><span>01</span> / PORTFOLIO</p>
         <h2>Selected work<span class="hero-dot">.</span></h2>
-        <p>Financial risk, process automation, and business strategy applied to practical problems.</p>
       </div>
+      <article class="featured-project panel" id="currency-risk" aria-labelledby="currency-risk-title">
+        <div class="feature-copy">
+          <p class="kicker"><span class="signal"></span> FEATURED PROJECT / FX RISK</p>
+          <h3 id="currency-risk-title">Portfolio Currency Exposure Risk Report</h3>
+          <p>I wrote a Python tool that uses FRED exchange rates to put foreign holdings on a common USD basis and flag positions that could cost more than 5% of the portfolio.</p>
+          <ul class="tags"><li>Python</li><li>FRED API</li><li>Scenario analysis</li></ul>
+          <div class="actions">
+            <a class="button button-primary" href="#fx">Try the FX simulator</a>
+            <a class="text-link" href="https://github.com/Immortal-Ancestor/currency-risk-report" target="_blank" rel="noopener">View source code</a>
+          </div>
+        </div>
+        <figure class="feature-chart">
+          <figcaption>
+            <span class="kicker">PYTHON REPORT / SAMPLE RATES</span>
+            <strong>Portfolio loss by position</strong>
+            <span class="small">10% adverse move applied to each position separately</span>
+          </figcaption>
+          <div class="feature-bar is-flagged">
+            <div><span>EUR</span><strong>6.62%</strong></div>
+            <div class="feature-track" aria-hidden="true"><span style="width: 82.7%"></span></div>
+          </div>
+          <div class="feature-bar">
+            <div><span>CAD</span><strong>3.38%</strong></div>
+            <div class="feature-track" aria-hidden="true"><span style="width: 42.3%"></span></div>
+          </div>
+          <div class="feature-scale" aria-hidden="true"><span>0%</span><span>5% limit</span><span>8%</span></div>
+          <p class="feature-takeaway">The EUR position crossed the 5% threshold. It made up about two-thirds of the sample portfolio.</p>
+        </figure>
+        <details class="walkthrough feature-walkthrough">
+          <summary>Read the walkthrough and report output</summary>
+          <dl>
+            <div><dt>Problem</dt><dd>Which holdings could cause a material loss if their currencies weakened against the US dollar?</dd></div>
+            <div><dt>My contribution</dt><dd>For DGTR 3720, I wrote the rate conversion, stress test, and risk flagging logic.</dd></div>
+            <div><dt>Method</dt><dd>Convert each holding to USD, apply a 10% adverse move, and divide its loss by the total portfolio value.</dd></div>
+            <div><dt>Result</dt><dd>The report ranks holdings by portfolio weight. In the sample run, the EUR holding was the only one flagged.</dd></div>
+          </dl>
+          <table class="sample-report">
+            <caption>Python report output for a US$99,750 portfolio with sample rates</caption>
+            <thead><tr><th scope="col">Currency</th><th scope="col">Value (USD)</th><th scope="col">Loss (USD)</th><th scope="col">Status</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">EUR</th><td>$66,000</td><td>$6,600</td><td>Warning</td></tr>
+              <tr><th scope="row">CAD</th><td>$33,750</td><td>$3,375</td><td>OK</td></tr>
+            </tbody>
+          </table>
+        </details>
+      </article>
+      <h3 class="more-work">More projects</h3>
       <div class="explore panel" hidden>
-        <div><h3>Explore by interest</h3><p id="interest-note" class="small" aria-live="polite">Browse five projects in finance, strategy and automation.</p></div>
-        <div class="filters" role="group" aria-label="Explore by interest">
+        <div><p id="interest-note" class="small" aria-live="polite">Browse four more projects by interest.</p></div>
+        <div class="filters" role="group" aria-label="Filter more projects by interest">
         <button type="button" data-filter="all" aria-pressed="true">All</button>
         <button type="button" data-filter="finance" aria-pressed="false">Finance &amp; risk</button>
         <button type="button" data-filter="automation" aria-pressed="false">Automation</button>
@@ -85,32 +126,6 @@
         <a class="text-link" id="interest-experience" href="#experience" hidden>See related experience</a>
       </div>
       <div class="projects" id="projects">
-        <article class="project panel" data-category="finance automation">
-          <div class="project-id"><span>01 / FX RISK</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
-          <h3>Portfolio Currency Exposure Risk Report</h3>
-          <p>A Python report that uses FRED exchange rates to convert positions to USD, model a 10% adverse move, and flag material exposures.</p>
-          <ul class="tags"><li>Python</li><li>FRED API</li><li>Scenario analysis</li></ul>
-          <p class="project-proof"><strong>5%</strong> portfolio loss threshold</p>
-          <details class="walkthrough">
-            <summary>Project walkthrough</summary>
-            <dl>
-                <div><dt>Problem</dt><dd>How much could a currency move cost the whole portfolio?</dd></div>
-                <div><dt>My contribution</dt><dd>Built the conversion, scenario and flagging logic for Data Transformation (DGTR 3720).</dd></div>
-                <div><dt>Method</dt><dd>Convert positions to USD, calculate each portfolio weight, then apply a 10% adverse move.</dd></div>
-                <div><dt>Result</dt><dd>The report ranks positions and flags any single exposure whose loss exceeds 5% of the portfolio.</dd></div>
-            </dl>
-            <figure class="project-output">
-                <figcaption>Report excerpt · generated with sample rates</figcaption>
-                <pre tabindex="0">CURRENCY     USD VALUE    WEIGHT     10% LOSS  STATUS
-EUR          $  66,000     66.2%     $  6,600  WARNING
-CAD          $  33,750     33.8%     $  3,375  OK
-
-TOTAL PORTFOLIO (USD)      $99,750</pre>
-              </figure>
-              <a class="text-link" href="#fx">Try the FX scenario</a>
-          </details>
-          <a class="text-link" href="https://github.com/Immortal-Ancestor/currency-risk-report" target="_blank" rel="noopener">View code <svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></a>
-        </article>
         <article class="project panel" data-category="automation">
           <div class="project-id"><span>02 / AUTOMATION</span><svg class="icon" aria-hidden="true" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12 12 4M5 4h7v7"/></svg></div>
           <h3>Tea with Nessie</h3>
@@ -193,7 +208,7 @@ TOTAL PORTFOLIO (USD)      $99,750</pre>
       <div class="lab-grid">
         <article class="simulator panel" id="fx" aria-labelledby="sim-title">
           <div class="sim-top"><h3 id="sim-title">FX shock simulator</h3><span class="tag">CURRENCY RISK</span></div>
-          <p>Start with a hypothetical US$100,000 portfolio. Adjust the size of one foreign currency position and the adverse FX move.</p>
+          <p>This demo uses the risk report’s loss calculation on a hypothetical US$100,000 portfolio. Change the position weight and FX move to see when a holding would need a closer look.</p>
           <div class="sim-inputs" hidden>
             <div class="range-row">
               <label for="exposure">Position weight</label><output id="exposure-value" for="exposure">40%</output>
@@ -217,11 +232,11 @@ TOTAL PORTFOLIO (USD)      $99,750</pre>
           </figure>
           <div class="sim-result" aria-live="polite"><div><span class="small">Portfolio loss</span><strong id="loss">4.00%</strong></div><span class="sim-status" id="risk-status">Within threshold</span></div>
           <p class="small">Portfolio after shock <strong id="fx-value">US$96,000</strong></p>
-          <a class="text-link" href="https://github.com/Immortal-Ancestor/currency-risk-report" target="_blank" rel="noopener">View the Python project</a>
+          <a class="text-link" href="#currency-risk">See the currency risk project</a>
         </article>
         <article class="simulator panel" id="npv" aria-labelledby="npv-title">
           <div class="sim-top"><h3 id="npv-title">NPV sensitivity</h3><span class="tag">CAPITAL BUDGETING</span></div>
-          <p>Test a hypothetical C$100,000 investment with five equal cash flows paid at year end and no terminal value.</p>
+          <p>I built this demo around a question from my finance coursework: how much annual cash flow would a C$100,000 investment need to break even? Test different discount rates over five equal year-end payments, with no terminal value.</p>
           <div class="sim-inputs" hidden>
             <div class="range-row">
               <label for="cash-flow">Annual cash flow</label><output id="cash-value" for="cash-flow">$30,000</output>
